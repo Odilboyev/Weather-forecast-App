@@ -19,9 +19,12 @@ export default function Home() {
       );
     };
     const getData = async () => {
-      getLocation();
-      const datas = await GetData(location[0], location[1]);
-      return datas;
+      await getLocation();
+      if (location.length > 0) {
+        const datas = await GetData(location[0], location[1]);
+        console.log(datas);
+        return datas;
+      }
     };
     getData();
     console.log(location);
