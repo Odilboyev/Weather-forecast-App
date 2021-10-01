@@ -1,6 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
+
 html,
 body {
   padding: 0;
@@ -20,5 +21,12 @@ a {
   box-sizing: border-box;
 }
 
+.center{
+  
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
 `;
 export default GlobalStyle;
