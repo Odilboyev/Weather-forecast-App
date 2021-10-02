@@ -4,13 +4,13 @@ const Right = ({ weather }) => {
   const [todayData, setTodayData] = useState([]);
   const [clock, setClock] = useState(new Date());
   const [time, setTime] = useState([]);
-  const [day, setDay] = useState("");
+  const [day, setDay] = useState(true);
   useEffect(() => {
     if (weather != null && todayData.length == 0) {
       setTodayData([weather.current]);
       setSituation(weather.current);
     }
-  }, [weather]);
+  }, [weather, time]);
   useEffect(() => {
     setTimeout(() => {
       setClock(getTime());
@@ -35,30 +35,30 @@ const Right = ({ weather }) => {
 
   // day / night
   const setSituation = (array) => {
+    // vaqtni hisoblash
     let ar = [
       new Date(array.sunrise * 1000).getHours(),
       new Date(array.sunset * 1000).getHours(),
       new Date().getHours(),
     ];
     setTime(ar);
-    console.log(ar);
-
+    // tunga o'zgartirish
     if (ar[0] >= ar[2] && ar[1] <= ar[2]) {
-      setDay("Night");
-    } else {
-      setDay("Day");
+      setDay(false);
+      console.log(day);
     }
-    console.log(day);
   };
 
   // image
   const setImage = (weather) => {
+    // set image dynamically && check day or night
     switch (weather) {
       case "Clear":
-        return "/icons/cloudy-night-3.svg";
-
+        if (day) return "/icons/day.svg";
+        else return "/icons/night.svg";
       case "Clouds":
-        return "/icons/cloudy-night-3.svg";
+        if (day) return "/icons/cloudy-day-3.svg";
+        else return "/icons/cloudy-night-3.svg";
       default:
         return;
     }
@@ -84,7 +84,7 @@ const Right = ({ weather }) => {
               RealFeel <span>{v.feels_like} °C</span>
             </p>
             <p>
-              Humidity: <span>{v.humidity}</span>
+              Humidity: <span>{v.humidity}%</span>
             </p>
             <p>
               Cloud cover: <span>{v.clouds}%</span>

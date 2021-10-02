@@ -5,7 +5,7 @@ import MainWrapper from "./MainWrapper";
 const Main = ({ data }) => {
   return (
     <MainWrapper>
-      <Left />
+      <Left zone={data} />
       <Right weather={data} />
     </MainWrapper>
   );

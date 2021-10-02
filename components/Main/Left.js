@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { MdLocationOn, MdSearch } from "react-icons/md";
-const Left = () => {
+const Left = ({ zone }) => {
+  const [loaction, setLoaction] = useState(null);
+  useEffect(() => {
+    if (zone != null) setLoaction(zone.timezone);
+  }, [zone]);
   return (
     <div className="left">
       <div className="background">
@@ -18,7 +22,7 @@ const Left = () => {
                 </div>
                 <div className="data w-75">
                   <p className="m-0 p-0">Current Location</p>
-                  <h6 className="fw-bold">Tashkent, Uzbekistan</h6>
+                  <h6 className="fw-bold">{loaction}</h6>
                 </div>
               </div>
             </div>
