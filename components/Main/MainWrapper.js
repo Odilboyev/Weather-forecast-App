@@ -7,9 +7,47 @@ const MainWrapper = styled.div`
 
   /* shadow */
   border-radius: 50px;
-  box-shadow: rgba(100, 100, 111, 0.4) 0px 7px 29px 0px;
+  box-shadow: 0px 7px 29px 0px rgba(100, 100, 111, 0.4);
   background: #f3f3f3;
 
+  /* badge */
+  .location {
+    border-radius: 30px;
+    width: 50%;
+    padding: 5px 0;
+    background-color: #17171750;
+    backdrop-filter: blur(5px);
+    svg {
+      font-size: 20px;
+    }
+  }
+
+  /* swiper */
+  .swiper {
+    width: 100%;
+    height: 100%;
+  }
+
+  .swiper-slide {
+    text-align: center;
+    background: transparent;
+    padding: 40px 0 !important;
+    /* Center slide text vertically */
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+  }
+
+  /* swiper */
   .left {
     display: flex;
     justify-content: center;
@@ -75,32 +113,64 @@ const MainWrapper = styled.div`
       h2 {
         text-shadow: 2px 8px 6px rgba(0, 0, 0, 0.5);
       }
-      .location {
-        border-radius: 25px;
-        width: 40%;
-        padding: 5px 0;
-        background-color: #17171750;
-        backdrop-filter: blur(5px);
-        svg {
-          font-size: 20px;
-        }
-      }
     }
   }
   .right {
-    padding: 5%;
+    padding: 3% 0;
     background: #f3f3f3;
     width: 40%;
     height: 100%;
     border-radius: 40px;
     color: #000000;
 
+    /* tabs */
+    .tabs {
+      list-style: none;
+      width: 50%;
+      height: 45px;
+      border-radius: 50px;
+      padding: 0;
+      display: flex;
+      justify-content: space-evenly;
+      background: #ccc;
+      position: relative;
+
+      span {
+        background: #007aff;
+        z-index: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 50%;
+        height: 100%;
+        border-radius: 50px;
+        box-shadow: 0px 7px 29px 0px rgba(100, 100, 111, 0.4);
+
+        transition: 0.3s ease-in-out;
+      }
+      .tab {
+        cursor: pointer;
+        text-align: center;
+        z-index: 2;
+        width: 50%;
+        padding: 10px;
+        border-radius: 50px;
+        &.active {
+          color: #fff;
+          font-weight: bold;
+          transition: 0.3s ease-in-out;
+        }
+      }
+    }
+    /* tabs */
+
     .weather-card {
-      width: 110%;
+      margin: auto;
+      width: 80%;
       border-radius: 20px;
       padding: 30px 20px;
-      background: #fff;
-      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+      background: linear-gradient(145deg, #e6e6e6, #ffffff);
+      box-shadow: 11px 11px 22px #d1d1d1, -11px -11px 22px #ffffff;
       display: flex;
       align-items: center;
       justify-content: space-evenly;
@@ -118,6 +188,9 @@ const MainWrapper = styled.div`
         padding-left: 20px;
         text-align: left;
         width: 48%;
+        img {
+          width: 100%;
+        }
         p {
           margin-bottom: 0.5rem;
           color: #353f47;

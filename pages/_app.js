@@ -2,6 +2,8 @@ import GlobalStyle from "../styles/globalStyle";
 import Head from "next/head";
 import "bootstrap/dist/css/bootstrap.css";
 import "../styles/Home.module.css";
+// eslint-disable-next-line
+import "swiper/css/bundle";
 function MyApp({ Component, pageProps }) {
   return (
     <>

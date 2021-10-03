@@ -3,6 +3,7 @@ import Left from "./Left";
 import Right from "./Right";
 import MainWrapper from "./MainWrapper";
 const Main = ({ data }) => {
+  console.log(data);
   return (
     <MainWrapper>
       <Left zone={data} />
