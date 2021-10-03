@@ -15,7 +15,13 @@ const Left = ({ zone, setInput, location, input, getData }) => {
   return (
     <div className="left">
       <div className="background">
-        <video src="/background.mp4" autoPlay muted loop></video>
+        <video
+          src="/background.mp4"
+          autoPlay
+          muted
+          loop
+          poster="/thumbnail.png"
+        ></video>
       </div>
       <div className="content">
         <div className="conatiner">

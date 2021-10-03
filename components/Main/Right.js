@@ -113,21 +113,25 @@ const Right = ({ weather, search, day, changeday }) => {
       <div className="center h-100">
         {city == null ? (
           <>
-            <ul className="tabs">
-              <span style={{ left: `${index === 0 ? "0" : 50}%` }}></span>
-              <li
-                className={`tab ${index == 0 ? "active" : ""}`}
-                onClick={() => setIndex(0)}
-              >
-                Today
-              </li>
-              <li
-                className={`tab ${index == 1 ? "active" : ""}`}
-                onClick={() => setIndex(1)}
-              >
-                For 7 days
-              </li>
-            </ul>
+            {weather != null ? (
+              <ul className="tabs">
+                <span style={{ left: `${index === 0 ? "0" : 50}%` }}></span>
+                <li
+                  className={`tab ${index == 0 ? "active" : ""}`}
+                  onClick={() => setIndex(0)}
+                >
+                  Today
+                </li>
+                <li
+                  className={`tab ${index == 1 ? "active" : ""}`}
+                  onClick={() => setIndex(1)}
+                >
+                  For 7 days
+                </li>
+              </ul>
+            ) : (
+              ""
+            )}
             {routes[index] == "today" ? (
               <>
                 <WeatherCard todayData={todayData} day={day} clock={clock} />{" "}
