@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import { GetData } from "./api/getData";
+import { GetData } from "./api/dataFromLocation";
 import styles from "../styles/Home.module.css";
 import Main from "../components/Main";
 

@@ -2,8 +2,14 @@ import styled from "styled-components";
 
 const MainWrapper = styled.div`
   display: flex;
+  flex-wrap: wrap;
   width: 95vw;
   height: 90vh;
+
+  /* theme */
+  &.night {
+    background: #202020;
+  }
 
   /* shadow */
   border-radius: 50px;
@@ -31,7 +37,7 @@ const MainWrapper = styled.div`
   .swiper-slide {
     text-align: center;
     background: transparent;
-    padding: 40px 0 !important;
+    padding: 20px 0 !important;
     /* Center slide text vertically */
     display: -webkit-box;
     display: -ms-flexbox;
@@ -69,8 +75,9 @@ const MainWrapper = styled.div`
       width: 100%;
       height: 100%;
       video {
-        width: 140%;
-        object-fit: contain;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
       }
     }
     .content {
@@ -116,23 +123,31 @@ const MainWrapper = styled.div`
     }
   }
   .right {
-    padding: 3% 0;
+    padding: 3%;
     background: #f3f3f3;
     width: 40%;
     height: 100%;
     border-radius: 40px;
     color: #000000;
 
+    /* theme */
+    &.night {
+      background-color: #202020 !important;
+      color: #fff;
+    }
+    /* theme */
+
     /* tabs */
     .tabs {
       list-style: none;
-      width: 50%;
+      width: 80%;
       height: 45px;
       border-radius: 50px;
       padding: 0;
       display: flex;
       justify-content: space-evenly;
-      background: #ccc;
+      background: #333;
+      color: #ccc;
       position: relative;
 
       span {
@@ -174,6 +189,14 @@ const MainWrapper = styled.div`
       display: flex;
       align-items: center;
       justify-content: space-evenly;
+      &.night {
+        color: #fff;
+        background: linear-gradient(145deg, #222222, #1d1d1d);
+        box-shadow: 5px 5px 14px #0d0d0d, -5px -5px 14px #333333;
+        span {
+          color: #fff !important;
+        }
+      }
       .card-left {
         width: 48%;
         text-align: center;
@@ -201,6 +224,18 @@ const MainWrapper = styled.div`
           }
         }
       }
+    }
+  }
+  @media (max-width: 880px) {
+    .left {
+      width: 100% !important;
+      height: 50vh;
+      .input-wrapper {
+        padding: 10% 0 !important;
+      }
+    }
+    .right {
+      width: 100% !important;
     }
   }
 `;

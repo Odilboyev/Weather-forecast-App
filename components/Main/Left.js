@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { MdLocationOn, MdSearch } from "react-icons/md";
-const Left = ({ zone }) => {
-  const [loaction, setLoaction] = useState(null);
+import { GetData_WithCity } from "../../pages/api/getDataWithInput";
+const Left = ({ zone, setInput, location, input, getData }) => {
+  const [loaction, setLoaction] = useState("");
 
   useEffect(() => {
     if (zone != null) setLoaction(zone.timezone);
-  }, [zone]);
+
+    if (location != null) {
+      setLoaction(location.city.country + " / " + location.city.name);
+    }
+  }, [zone, location]);
 
   return (
     <div className="left">
@@ -36,8 +41,16 @@ const Left = ({ zone }) => {
             </h2>
 
             <div className="input mt-5">
-              <input type="text" />
-              <button className="search">
+              {/* input */}
+              <input
+                type="text"
+                value={input}
+                onChange={(e) => {
+                  setInput(e.target.value);
+                }}
+              />
+              {/* input */}
+              <button className="search" onClick={() => getData(input)}>
                 <MdSearch />
               </button>
             </div>

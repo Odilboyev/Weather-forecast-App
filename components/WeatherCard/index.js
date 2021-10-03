@@ -27,6 +27,14 @@ const WeatherCard = ({ todayData, day, clock }) => {
       case "Clouds":
         if (day) return "/icons/cloudy-day-3.svg";
         else return "/icons/cloudy-night-3.svg";
+      case "Rain":
+        if (day) return "/icons/rainy-day.svg";
+        else return "/icons/rainy-night.svg";
+      case "Snow":
+        if (day) return "/icons/snowy-3.svg";
+        else return "/icons/snowy-6.svg";
+      case "Thunderstorm":
+        return "/icons/thunder.svg";
       default:
         return;
     }
@@ -34,7 +42,7 @@ const WeatherCard = ({ todayData, day, clock }) => {
   return (
     <>
       {todayData.map((v, i) => (
-        <div className="weather-card" key={i}>
+        <div className={`weather-card ${!day ? "night" : ""}`} key={i}>
           <div className="card-left">
             <div className="w-75 m-auto">
               <img src={setImage(v.weather[0].main)} />

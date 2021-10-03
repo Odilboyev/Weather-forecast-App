@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Slide } from "react-awesome-reveal";
 import { MdLocationOn } from "react-icons/md";
 import WeatherCard from "../WeatherCard";
 
@@ -14,29 +15,40 @@ import SwiperCore, {
   Mousewheel,
   Keyboard,
 } from "swiper";
+import WeatherCardCity from "../WeatherCard City";
 
 // install Swiper modules
 SwiperCore.use([Navigation, Pagination, Mousewheel, Keyboard]);
 
-const Right = ({ weather }) => {
+// ------------------------- right start-----------------------
+
+const Right = ({ weather, search, day, changeday }) => {
   const [clock, setClock] = useState(new Date());
   const [daily, setDaily] = useState([]);
   const [todayData, setTodayData] = useState([]);
+  //
+  const [city, setCity] = useState(null);
+  //
   const [time, setTime] = useState([]);
-  const [day, setDay] = useState(true);
   //route
   const routes = ["today", "daily"];
-  const [index, setIndex] = useState(1);
+  const [index, setIndex] = useState(0);
   useEffect(() => {
-    if (weather != null && todayData.length == 0) {
+    if (search != null) {
+      setCity(search);
+      setDaily(null);
+      setTodayData(null);
+    }
+    if (weather != null) {
       setTodayData([weather.current]);
-      console.log(weather.daily);
 
       setSituation(weather.current);
+      console.log(day);
     }
     if (weather != null) setDaily(weather.daily);
-    console.log(daily);
-  }, [weather]);
+    // searched city
+    console.log(search);
+  }, [weather, search]);
   useEffect(() => {
     setTimeout(() => {
       setClock(getTime());
@@ -75,10 +87,10 @@ const Right = ({ weather }) => {
       new Date().getHours(),
     ];
     setTime(ar);
+    console.log(ar);
     // tunga o'zgartirish
-    if (ar[0] >= ar[2] && ar[1] <= ar[2]) {
-      setDay(false);
-      console.log(day);
+    if (ar[0] >= ar[2] || ar[1] <= ar[2]) {
+      changeday(false);
     }
   };
 
@@ -97,58 +109,114 @@ const Right = ({ weather }) => {
   //   }
   // };
   return (
-    <div className="right">
+    <div className={`right ${day ? "" : "night"}`}>
       <div className="center h-100">
-        <ul className="tabs">
-          <span style={{ left: `${index === 0 ? "0" : 50}%` }}></span>
-          <li
-            className={`tab ${index == 0 ? "active" : ""}`}
-            onClick={() => setIndex(0)}
-          >
-            Today
-          </li>
-          <li
-            className={`tab ${index == 1 ? "active" : ""}`}
-            onClick={() => setIndex(1)}
-          >
-            For 7 days
-          </li>
-        </ul>
-        {routes[index] == "today" ? (
+        {city == null ? (
           <>
-            <WeatherCard todayData={todayData} day={day} clock={clock} />{" "}
-          </>
-        ) : routes[index] == "daily" ? (
-          <>
-            <Swiper
-              navigation={true}
-              slidesPerView={"auto"}
-              centeredSlides={true}
-              spaceBetween={30}
-              pagination={{
-                clickable: true,
-              }}
-              mousewheel={true}
-              keyboard={true}
-            >
-              {daily.map((v, i) => {
-                let array = [v];
-                console.log(array);
-                return (
-                  <SwiperSlide>
-                    <WeatherCard
-                      className="swiper-slide"
-                      todayData={array}
-                      key={i}
-                      day={day}
-                    />
-                  </SwiperSlide>
-                );
-              })}{" "}
-            </Swiper>
+            <ul className="tabs">
+              <span style={{ left: `${index === 0 ? "0" : 50}%` }}></span>
+              <li
+                className={`tab ${index == 0 ? "active" : ""}`}
+                onClick={() => setIndex(0)}
+              >
+                Today
+              </li>
+              <li
+                className={`tab ${index == 1 ? "active" : ""}`}
+                onClick={() => setIndex(1)}
+              >
+                For 7 days
+              </li>
+            </ul>
+            {routes[index] == "today" ? (
+              <>
+                <WeatherCard todayData={todayData} day={day} clock={clock} />{" "}
+              </>
+            ) : routes[index] == "daily" ? (
+              <>
+                <Swiper
+                  navigation={true}
+                  slidesPerView={"auto"}
+                  centeredSlides={true}
+                  spaceBetween={30}
+                  pagination={{
+                    clickable: true,
+                  }}
+                  mousewheel={true}
+                  keyboard={true}
+                >
+                  {daily.map((v, i) => {
+                    let array = [v];
+                    return (
+                      <SwiperSlide key={i}>
+                        <WeatherCard todayData={array} key={i} day={day} />
+                      </SwiperSlide>
+                    );
+                  })}
+                </Swiper>
+              </>
+            ) : (
+              ""
+            )}
           </>
         ) : (
-          ""
+          <>
+            <ul className="tabs">
+              <span style={{ left: `${index === 0 ? "0" : 50}%` }}></span>
+              <li
+                className={`tab ${index == 0 ? "active" : ""}`}
+                onClick={() => setIndex(0)}
+              >
+                Today
+              </li>
+              <li
+                className={`tab ${index == 1 ? "active" : ""}`}
+                onClick={() => setIndex(1)}
+              >
+                For 5 days
+              </li>
+            </ul>
+            {routes[index] == "today" ? (
+              <>
+                <h2 className="mt-5">{city.city.name}</h2>
+
+                <WeatherCardCity
+                  currentDay={day ? "" : "night"}
+                  todayData={[city.list[0]]}
+                  clock={clock}
+                />
+              </>
+            ) : routes[index] == "daily" ? (
+              <>
+                <h4 className="mt-5">5 day/3 hour forecast data</h4>
+                <Swiper
+                  navigation={true}
+                  slidesPerView={"auto"}
+                  centeredSlides={true}
+                  spaceBetween={30}
+                  pagination={{
+                    clickable: true,
+                  }}
+                  mousewheel={true}
+                  keyboard={true}
+                >
+                  {city.list.map((v, i) => {
+                    let array = [v];
+                    return (
+                      <SwiperSlide key={i}>
+                        <WeatherCardCity
+                          currentDay={day ? "" : "night"}
+                          todayData={array}
+                        />
+                      </SwiperSlide>
+                    );
+                  })}
+                </Swiper>
+              </>
+            ) : (
+              ""
+            )}{" "}
+          </>
         )}
       </div>
     </div>
