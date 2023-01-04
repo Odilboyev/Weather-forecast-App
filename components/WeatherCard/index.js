@@ -16,6 +16,11 @@ const WeatherCard = ({ todayData, day, clock }) => {
       date.getMonth() + 1
     )}.${date.getFullYear()}`;
   };
+  const getDay = (sec) => {
+    let day = new Date(sec*1000)
+      .toLocaleDateString("en-US", { weekday: "long" });
+    return day
+  }
 
   // image
   const setImage = (weather) => {
@@ -62,7 +67,8 @@ const WeatherCard = ({ todayData, day, clock }) => {
             )}
             <hr className="w-50 my-2 mx-auto" />
             <h5>{clock ? clock.toLocaleTimeString("it-IT") : ""}</h5>
-            <h4>{getDate(v.dt)}</h4>
+            <h6>{getDate(v.dt)}</h6>
+            <h4>{getDay(v.dt)}</h4>
           </div>
           <div className="line"></div>
           <div className="card-right ">

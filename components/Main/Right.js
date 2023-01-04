@@ -44,6 +44,7 @@ const Right = ({ weather, search, day, changeday }) => {
 
       setSituation(weather.current);
       console.log(day);
+      console.log(weather)
     }
     if (weather != null) setDaily(weather.daily);
     // searched city
